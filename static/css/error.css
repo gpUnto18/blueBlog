@@ -1,0 +1,42 @@
+p {
+    font-size: 20px;
+    margin-top: 30px;
+    text-align: center;
+}
+
+.homebutton {
+    float: left;
+    width: 100%;
+    display: block;
+    text-align: center;
+}
+
+.homebutton a {
+    width: auto;
+    height: auto;
+    text-align: center;
+    padding: 13px 13px 13px 13px;
+    margin: auto;
+    color: #051042;
+    text-decoration: none;
+    border-radius: 3px;
+    font-size: 30px;
+}
+
+.homebutton a:hover {
+    background-color: #081650;
+    color: white;
+}
+
+.block {
+    display: block;
+    height: 49px;
+}
+
+.line {
+    background-color: #081650;
+    height: 3px;
+    display: block;
+    width: 80%;
+    margin: 10px auto 10px auto;
+}

@@ -1,0 +1,24 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="column-100">
+            {% if user.is_authenticated %}
+
+            {% else %}
+                <div class="text-1">Please log in to access content administration:</div>
+                <form action="">
+                    <input class="login-field" type="text" placeholder="Login" name="login-name">
+                    <input class="login-field" type="text" placeholder="Password" name="login-pw">
+                    <button class="form-button" type="submit">Login</button>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+
+
+    <script>
+    </script>
+
+{% endblock %}

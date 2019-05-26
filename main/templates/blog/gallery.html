@@ -1,0 +1,83 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+        <div class="row">
+            <div class="gallery">
+                {% for images in images %}
+                    <img src="{{ images.image.url }}" onclick="openModal({{ images.id }});" alt="">
+                {% endfor %}
+            </div>
+        </div>
+
+        <div id="lightbox" class="lightbox">
+            <div id="close" class="lightbox-close" onclick="closeModal()"><i class="fa fa-close"></i></div>
+            <div id="next" class="lightbox-next" onclick="next()"><i class="fa fa-chevron-right"></i></div>
+            <div id="previous" class="lightbox-previous" onclick="previous()"><i class="fa fa-chevron-left"></i></div>
+            {% if user.is_authenticated %}
+                <div id="delete" class="lightbox-delete" onclick="deleteImage()"><i class="fa fa-trash"></i></div>
+            {% endif %}
+            <div class="lightbox-image">
+                {% for images in images %}
+                    <img id="{{ images.id }}" src="{{ images.image.url }}" onclick="" alt="" style="display:none">
+                {% endfor %}
+            </div>
+        </div>
+
+      <script>
+        //Masonry
+        var $grid = $('.gallery').masonry({ itemSelector: '.gallery img', });
+        $grid.imagesLoaded().progress( function() { $grid.masonry('layout');});
+
+        //Lightbox
+        var activeImage;
+        var numberOfImages = $('.lightbox-image img').length;
+        var imageDict = JSON.parse('{{ imageDict | escapejs }}');
+
+        function openModal(n) {
+            $("#lightbox").css({"display": "block"});
+            activeImage = n;
+            showImage(n);
+        }
+
+        function closeModal() {
+            $("#lightbox").css({"display": "none"});
+            $(".lightbox-image img").css({"display": "none"});
+        }
+
+        function next() {
+            $(".lightbox-image img").css({"display": "none"});
+            activeImage++;
+            if (activeImage > numberOfImages) {
+                activeImage = 1;
+            }
+            $("#" + activeImage).css({"display": "block"});
+        }
+
+        function previous() {
+            $(".lightbox-image img").css({"display": "none"});
+            activeImage--;
+            if (activeImage < 1) {
+                activeImage = numberOfImages;
+            }
+            $("#" + activeImage).css({"display": "block"});
+        }
+
+        function deleteImage() {
+            imgPK = String(imageDict[activeImage]);
+            if(confirm("Do you really want to delete this picture?")) {
+                window.location.href = 'https://gp18.pythonanywhere.com/gallery/deletePicture/' + imgPK;
+            }
+        }
+
+        function showImage(n) {
+            $("#" + n).css({"display": "block"});
+        }
+
+        $(document).keyup(function(e) {
+            if (e.keyCode === 27) $("#close").click();   // ESC-key
+            if (e.keyCode === 37) $("#previous").click();   // LEFT-key
+            if (e.keyCode === 39) $("#next").click();   // RIGHT-key
+        });
+      </script>
+
+{% endblock %}

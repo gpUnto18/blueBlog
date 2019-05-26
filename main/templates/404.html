@@ -1,0 +1,24 @@
+{% load static %}
+
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <head>
+
+        <title>BlueBlog</title>
+        <link rel="icon" href="{% static 'image/icon.png' %}">
+        <link rel="shortcut icon" href="{% static 'image/icon.png' %}">
+
+        <link rel="stylesheet" type="text/css" href="{% static 'css/error.css' %}">
+
+    </head>
+    <body>
+        <div class="line"></div>
+        <p>The requested page does not exist. Please return back to the main page:</p>
+        <div class="homebutton">
+            <a href="{% url 'home' %}">Home</a>
+        </div>
+        <div class="block"></div>
+        <div class="line"></div>
+
+    </body>
+</html>

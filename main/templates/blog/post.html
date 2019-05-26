@@ -1,0 +1,67 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="column-75">
+            {% if post.image %}
+
+                <div class="card-blog1-100">
+                    <img src="{{ post.image.url }}" alt="">
+                    <h1><a href="{% url 'post' pk=post.pk %}">{{ post.title|linebreaksbr }}</a></h1>
+                    <h5>{{ post.published_date }}</h5>
+                    <p>{{ post.text|linebreaksbr }}</p>
+                </div>
+
+            {% else %}
+
+                <div class="card-blog1-100">
+                    <h1><a href="{% url 'post' pk=post.pk %}">{{ post.title|linebreaksbr }}</a></h1>
+                    <h5>{{ post.published_date }}</h5>
+                    <p>{{ post.text|linebreaksbr }}</p>
+                </div>
+
+            {% endif %}
+
+            <div class="card-comment">
+                <form action="{% url 'comment' pk=post.pk %}" method="post">
+                    {% csrf_token %}
+                    <input type="text" maxlength="150" name="comment-title" placeholder="Title" class="comment-title" >
+                    <textarea name="comment-text" placeholder="Text" class="input-text"></textarea>
+                    <br><br>
+                    <script src='https://www.google.com/recaptcha/api.js'></script>
+                    <div class="g-recaptcha" data-sitekey="6Ld_0XgUAAAAAPGmpxlZ_XZqBg2-ZJaaLRJ7UTH0"></div>
+                    <input class="form-button" type="submit" value="Add comment">
+                </form>
+            </div>
+
+        {% for comment in comments %}
+
+          <div class="card-comment">
+            {% if user.is_authenticated %}
+                <form id={{ comment.pk }} "deleteCommentForm" action="{% url 'deleteComment' cPK=comment.pk pPK=post.pk %}" method="post">
+                    {% csrf_token %}
+                    <div class="comment-delete" onclick="deleteComment({{ comment.pk }})"><i class="fa fa-trash"></i></div>
+                </form>
+            {% endif %}
+            <h2>{{ comment.title|linebreaksbr }}</h2>
+            <p>{{ comment.text|linebreaksbr }}</p>
+          </div>
+
+        {% endfor %}
+
+        </div>
+
+      </div>
+
+      <script>
+
+        function deleteComment(commentPK) {
+            if (confirm("Do you really want to delete this comment?")) {
+                document.getElementById(commentPK).submit();
+            }
+        }
+
+      </script>
+
+{% endblock %}

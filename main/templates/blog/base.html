@@ -1,0 +1,67 @@
+{% load static %}
+
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+
+    <title>BlueBlog</title>
+    <link rel="icon" href="{% static 'image/icon.png' %}">
+    <link rel="shortcut icon" href="{% static 'image/icon.png' %}">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/blog.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+    <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
+
+  </head>
+  <body>
+
+    {% if user.is_authenticated %}
+        <div class="logout-bar">
+            <p class="message-text">You are currently logged in as an administrator.</p>
+            <div class="log-out">
+                <a href="{% url 'adminLogout' %}">Log out</a>
+            </div>
+
+        </div>
+    {% endif %}
+
+  <div class="container">
+
+      <div class="header">
+        <a href="{% url 'home' %}">
+            <img src="{% static 'image/title.svg' %}" alt="">
+        </a>
+      </div>
+
+      <div class="navbar">
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'gallery' %}">Gallery</a>
+        <a href="{% url 'documents' %}">Documents</a>
+        <div class="search-form">
+          <form action="/search/" method="get">
+            <input class="search-field" type="text" placeholder="Search..." name="search-text">
+            <button class="form-button-icon" type="submit"><i class="fa fa-search"></i></button>
+          </form>
+        </div>
+        {% if user.is_authenticated %}
+            <a class="admin" href="{% url 'admin' %}">Admin</a>
+        {% endif %}
+      </div>
+
+      {% block content %}
+      {% endblock %}
+
+      <div class="footer">
+        <div class="line"></div>
+        <p class=>gp18</p>
+      </div>
+
+    </div>
+
+  </body>
+</html>
+

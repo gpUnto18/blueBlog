@@ -1,0 +1,131 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="column-100">
+            {% if user.is_authenticated %}
+                <div class="admin-bar">
+                    <button onclick="showAddPost();">Add Post</button>
+                    <button onclick="showAddPicture();">Add to Gallery</button>
+                    <button onclick="showEditMe();">Edit Me</button>
+                    <button onclick="showEditInfo();">Add/Remove Infos</button>
+                    <button onclick="showEditLink();">Add/Remove Links</button>
+                    <button onclick="showEditDocument();">Add Document</button>
+                </div>
+
+                <div class="tools">
+
+                    <div class="container-add-post" style="display: none">
+                        <div class="text-1">Add post to main site</div>
+                        <form action="/addPost/" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <input class="picture-upload" type="file" name="post-picture" accept="image/*">
+                            <input class="input-title" type="text" maxlength="150" name="post-title" placeholder="Title">
+                            <textarea class="form-text" name="post-text" placeholder="Text"></textarea>
+                            <button class="form-button">Add Post</button>
+                        </form>
+                    </div>
+
+                    <div class ="container-add-picture" style="display: none">
+                        <div class="text-1">Add picture to the gallery</div>
+                        <form action="/addPicture/" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <input class="picture-upload" type="file" name="gallery-pictures" accept="image/*" multiple>
+                            <button class="form-button" type="submit">Add to Gallery</button>
+                        </form>
+                    </div>
+
+                    <div class="container-edit-me" style="display: none">
+                        <div class="text-1">Edit Me</div>
+                        <form action="/changeMe/" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <input class="picture-upload" type="file" name="me-picture" accept="image/* value=""">
+                            <p class="text-info">Current image: {{ me.image }}</p>
+                            <textarea name="me-description" placeholder="Description" class="input-text">{{ me.description }}</textarea>
+                            <button class="form-button" type="submit">Apply changes</button>
+                        </form>
+                    </div>
+
+                    <div class="container-edit-info" style="display: none">
+                        <div class="text-1">Add/Remove Infos</div>
+                    </div>
+
+                    <div class="container-edit-link" style="display: none">
+                        <div class="text-1">Add/Remove Links</div>
+                    </div>
+
+                    <div class="container-edit-document" style="display: none">
+                        <div class="text-1">Add Document</div>
+                    </div>
+
+                </div>
+
+            {% else %}
+
+                <div class="text-1">Please log in to access content administration:</div>
+                {% if not firstLogin and not maxAttempts %}
+                    <p class="message-text" style="display: block; width: 100%;">Invalid password or username entered!</p>
+                {% elif maxAttempts %}
+                    <p class="message-text" style="display: block; width: 100%;">Maximum login attempts reached.<br>Please wait 5 minutes.</p>
+                {% endif %}
+
+                {% if not maxAttempts %}
+                <form action="/admin/" method="post">
+                    {% csrf_token %}
+                    <input class="login-field" type="text" placeholder="Login" name="login-name">
+                    <input class="login-field" type="password" placeholder="Password" name="login-pw" >
+                    <button class="form-button" type="submit">Login</button>
+                </form>
+                {% endif %}
+
+            {% endif %}
+        </div>
+    </div>
+
+
+    <script>
+
+    //Menu switching
+    function hideAll() {
+        $(".container-add-post").css({"display": "none"});
+        $(".container-add-picture").css({"display": "none"});
+        $(".container-edit-me").css({"display": "none"});
+        $(".container-edit-info").css({"display": "none"});
+        $(".container-edit-link").css({"display": "none"});
+        $(".container-edit-document").css({"display": "none"});
+    }
+
+    function showAddPost() {
+        hideAll();
+        $(".container-add-post").css({"display": "block"});
+    }
+
+    function showAddPicture() {
+        hideAll();
+        $(".container-add-picture").css({"display": "block"});
+    }
+
+    function showEditMe() {
+        hideAll();
+        $(".container-edit-me").css({"display": "block"});
+    }
+
+    function showEditInfo() {
+        hideAll();
+        $(".container-edit-info").css({"display": "block"});
+    }
+
+    function showEditLink() {
+        hideAll();
+        $(".container-edit-link").css({"display": "block"});
+    }
+
+    function showEditDocument() {
+        hideAll();
+        $(".container-edit-document").css({"display": "block"});
+    }
+
+    </script>
+
+{% endblock %}

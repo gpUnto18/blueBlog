@@ -1,0 +1,25 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="column-75">
+            <div class="text-1">Edit Post</div>
+                <form action="{% url 'applyPostChanges' pk=post.pk %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input class="picture-upload" type="file" name="post-picture" accept="image/* value=""">
+                    <p class="text-info">Current image: {{ post.image }}</p>
+                    <textarea class="textarea-title" name="post-title" placeholder="Title">{{ post.title }}</textarea>
+                    <textarea class="form-text" name="post-text" placeholder="Text">{{ post.text }}</textarea>
+                    <button class="form-button" type="submit">Apply changes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+
+    </script>
+
+{% endblock %}

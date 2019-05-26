@@ -1,0 +1,85 @@
+{% load static %}
+
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+
+    <title>BlueBlog</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/blog.css' %}">
+  </head>
+  <body>
+
+  <div class="container">
+
+      <div class="header">
+        <img src="{% static 'image/header.jpg' %}" alt="header">
+      </div>
+
+      <div class="navbar">
+        <a class="active" href="">Home</a>
+        <a href="">Blog1</a>
+        <a href="">Blog2</a>
+        <div class="search-form">
+          <form action="">
+            <input type="text" placeholder="" name="search">
+            <button type="submit">Search</button>
+          </form>
+        </div>
+
+        <a href="" class="right">Admin</a>
+      </div>
+
+
+      <div class="row">
+        <div class="column-75">
+
+          <div class="card-blog1">
+            <h2>TITLE Blog1</h2>
+            <h5>Description, Dec 7, 2017</h5>
+            <div class="fakeimg" style="height:200px;">Image</div>
+            <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+          </div>
+
+          <div class="card-blog2">
+            <h2>TITLE Blog2</h2>
+            <h5>Description, Dec 7, 2017</h5>
+            <div class="fakeimg" style="height:200px;">Image</div>
+            <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+          </div>
+
+        </div>
+
+        <div class="column-25">
+
+          <div class="card">
+            <h2>About Me</h2>
+            <div class="fakeimg" style="height:100px;">Image</div>
+            <p>TEXTTEXTTEXTTEXT</p>
+          </div>
+
+          <div class="card">
+            <h3>Links/Pictures</h3>
+            <div class="fakeimg">Image</div><br>
+            <div class="fakeimg">Image</div><br>
+            <div class="fakeimg">Image</div>
+          </div>
+
+          <div class="card">
+            <h3>Info</h3>
+            <p>TEXTTEXTTEXTTEXT</p>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="footer">
+        <div class="line"></div>
+        <p class=>TEXTTEXTTEXTTEXT</p>
+      </div>
+
+    </div>
+
+  </body>
+</html>
+
